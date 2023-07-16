@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+    <!-- DataSource 配置数据库连接信息 property属性 driver驱动-->
+    <bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="username" value="root">
+        </property>
+        <property name="password" value="123456">
+        </property>
+        <property name="url" value="jdbc:mysql://localhost:3306/cloud_note">
+        </property>
+        <property name="driverClassName"
+                  value="com.mysql.cj.jdbc.Driver">
+        </property>
+    </bean>
+    <!-- SqlSessionFactoryBean 配置需要扫描的mapper映射文件路径-->
+    <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 指定dataDource 数据源 -->
+        <property name="dataSource" ref="dbcp"><!-- （ref="dbcp"== id="dbcp"） -->
+        </property>
+        <!-- 指定SQL定义文件 -->
+        <property name="mapperLocations"
+                  value="classpath:mapper/*.xml"><!-- name="mapperLocations" 映射文件的路径 -->
+        </property>
+    </bean>
+
+    <!--定义MapperScannerConfigurer生成的Dao对象id为接口名首字母小写 配置需要扫描的dao接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 指定Mapper接口所在包 -->
+        <property name="basePackage"
+                  value="cn.tedu.cloud_note.dao">
+        </property>
+        <!-- 默认注入SqlSessionFactory,可以省略 -->
+    </bean>
+</beans>
+
+

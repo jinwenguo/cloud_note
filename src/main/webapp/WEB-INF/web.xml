@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>cloud_note</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>springmvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param><!-- init初始化 param参数-->
+  		<param-name>contextConfigLocation</param-name> <!--context Config 配置 Location路劲  contextConfigLocation参数定义了要装入的 Spring 配置文件-->
+  		<param-value>classpath:conf/spring-*.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup><!--启动优先级默认给1  -->
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>springmvc</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+<!-- 
+通过url pattern找到servlet name，然后通过servlet name 找到 servlet class，
+配置前端控制器的路径，前端控制器已经由spring写好，我们只需要指定路径就可以。和初始化参数
+ -->

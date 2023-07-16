@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.NoteDao"><!-- 指的到底是那个接口 -->
+
+    <!--id接口的方法名字 parameterType参数类型 resultType 返回值类型（就是指的UserDao接口中方法返回值类型（user））-->
+    <select id="findByBookId" parameterType="String" resultType="cn.tedu.cloud_note.entity.Note">
+        <!-- 告诉mybatis如何去实现findByName方法 -->
+        select * from cn_note where cn_notebook_id=#{bookId}
+    </select>
+
+    <select id="findById" resultType="cn.tedu.cloud_note.entity.Note">
+        select * from cn_note where cn_note_id=#{noteId}
+    </select>
+
+    <update id="updateNote" parameterType="cn.tedu.cloud_note.entity.Note">
+        update cn_note
+        set cn_note_title=#{cn_note_title},
+            cn_note_body=#{cn_note_body},
+            cn_note_last_modify_time=#{cn_note_last_modify_time}
+        where cn_note_id=#{cn_note_id}
+    </update>
+
+    <insert id="saveNote" parameterType="cn.tedu.cloud_note.entity.Note">
+        insert into cn_note(cn_note_id,cn_notebook_id,cn_user_id,cn_note_status_id,cn_note_type_id,cn_note_title,cn_note_body,
+                             cn_note_create_time,cn_note_last_modify_time)
+            values(#{cn_note_id},#{cn_notebook_id},#{cn_user_id},#{cn_note_status_id},#{cn_note_type_id},#{cn_note_title},
+                   #{cn_note_body},#{cn_note_create_time},#{cn_note_last_modify_time})
+    </insert>
+
+    <delete id="deleteNote" parameterType="cn.tedu.cloud_note.entity.Note">
+        delete from cn_note where cn_note_id=#{cn_note_id}
+    </delete>
+
+</mapper>
+
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.ShareDao">
+
+    <resultMap id="BaseResultMap" type="cn.tedu.cloud_note.entity.Share">
+        <id property="shareId" column="cn_share_id" jdbcType="VARCHAR"/>
+        <result property="shareTitle" column="cn_share_title" jdbcType="VARCHAR"/>
+        <result property="shareBody" column="cn_share_body" jdbcType="VARCHAR"/>
+        <result property="noteId" column="cn_note_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cn_share_id
+        ,cn_share_title,cn_share_body,
+        cn_note_id
+    </sql>
+    <insert id="insertAll">
+        insert into cn_share
+            (cn_share_id, cn_share_title, cn_share_body, cn_note_id)
+        values (#{shareId,jdbcType=VARCHAR}, #{shareTitle,jdbcType=VARCHAR}, #{shareBody,jdbcType=VARCHAR},
+                #{noteId,jdbcType=VARCHAR})
+
+    </insert>
+
+</mapper>
