@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface BookDao {
     List<Book> findByUserId(@Param("userId") String userId);
+
     void save(Book book);
+
     int deleteByNotebookId(@Param("notebookId") String notebookId);
 
 }
