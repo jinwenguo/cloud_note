@@ -1,33 +1,35 @@
 package cn.tedu.cloud_note.service;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import cn.tedu.cloud_note.dao.UserDao;
 import cn.tedu.cloud_note.entity.User;
 import cn.tedu.cloud_note.util.NoteResult;
 import cn.tedu.cloud_note.util.NoteUtil;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 @Service("userService")//扫描的Spring容器
-public class UserServiceImpl implements UserService{
+@Transactional
+public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+
     @Override
-    public NoteResult<User> checkLogin(String name, String password){
+    public NoteResult<User> checkLogin(String name, String password) {
         //接受结果数据
         NoteResult<User> result = new NoteResult<User>();
         //按参考name查询数据库
         User user = userDao.findByName(name);
         //用户名检查
-        if(user==null){
+        if (user == null) {
             result.setStatus(1);
             result.setMsg("用户名不存在");
             return result;
         }
         //密码检查
         String md5Password = NoteUtil.md5(password);
-        if(!user.getCn_user_password().equals(md5Password)){
+        if (!user.getCn_user_password().equals(md5Password)) {
             result.setStatus(2);
             result.setMsg("密码错误");
             return result;
@@ -41,12 +43,12 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public NoteResult<User> fid(String name, String password){
+    public NoteResult<User> fid(String name, String password) {
         NoteResult<User> result = new NoteResult<>();
 
         //todo  根据给定用户名查找User对象
         User user = userDao.findByName(name);
-        if(user==null){
+        if (user == null) {
             result.setMsg("登录失败");
             result.setStatus(1);
             return result;
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService{
         String s = NoteUtil.md5(password);
 
         // todo 判定给定的密码与数据库查询到的密码是否匹配
-        if(s.equals(user.getCn_user_password())){
+        if (s.equals(user.getCn_user_password())) {
             result.setData(user);
             return result;
         }
@@ -104,7 +106,7 @@ public class UserServiceImpl implements UserService{
         NoteResult<User> result = new NoteResult<>();
         String s = NoteUtil.md5(password);
         User users1 = userDao.findByName1(name, s);
-        if(users1==null){
+        if (users1 == null) {
             result.setStatus(1);
             result.setMsg("密码或用户名不正确");
             return result;
@@ -114,13 +116,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public NoteResult<Object> addUser(String name, String nick, String password){
+    public NoteResult<Object> addUser(String name, String nick, String password) {
         //接受结果数据
         NoteResult<Object> result = new NoteResult<Object>();
         //用户检查
         User hasUser = userDao.findByName(name);
         //用户名检查
-        if(hasUser != null){
+        if (hasUser != null) {
             result.setStatus(1);
             result.setMsg("用户已经被占用");
             return result;
@@ -153,7 +155,7 @@ public class UserServiceImpl implements UserService{
         //用户检查
         User hasUser = userDao.findByName(user.getCn_user_name());
         //用户名检查
-        if(hasUser != null){
+        if (hasUser != null) {
             result.setStatus(1);
             result.setMsg("用户已经被占用");
             return result;

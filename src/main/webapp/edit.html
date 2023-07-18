@@ -27,7 +27,7 @@
     <script type="text/javascript" src="scripts/alert.js"></script>
     <script type="text/javascript" src="scripts/share.js"></script>
     <script type="text/javascript">
-
+        var page = 1;
 
         $(function () {
             loadUserBooks();
@@ -105,7 +105,13 @@
 
             });
 
+
+            //按回车，搜索结果分页显示
+            $("#search_note").keydown(sureSearchShare);
+            //点更多
+            $("#more_note").click(moreSearchShare);
         });
+
 
     </script>
 </head>
@@ -258,7 +264,7 @@
             <div class="module" data-toggle="niceScroll">
                 <div class="chat-contact">
                     <div class="contact-body">
-                        <ul class="contacts-list">
+                        <ul class="contacts-list" id="search_ul">
                         </ul>
                     </div>
                 </div>

@@ -23,5 +23,12 @@
                 #{noteId,jdbcType=VARCHAR})
 
     </insert>
+    <select id="selectAllByShareTitle" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cn_share
+        where
+        cn_share_title like #{shareTitle,jdbcType=VARCHAR} limit #{begin,jdbcType=INTEGER},3
+    </select>
 
 </mapper>

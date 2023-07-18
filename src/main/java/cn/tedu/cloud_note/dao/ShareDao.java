@@ -1,6 +1,9 @@
 package cn.tedu.cloud_note.dao;
 
 import cn.tedu.cloud_note.entity.Share;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author Administrator
@@ -11,7 +14,9 @@ import cn.tedu.cloud_note.entity.Share;
 public interface ShareDao {
     int insertAll(Share share);
 
-   
+    List<Share> selectAllByShareTitle(@Param("shareTitle") String shareTitle, @Param("begin") int begin);
+
+
 }
 
 
